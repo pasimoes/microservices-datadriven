@@ -1,0 +1,15 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: account-service-monitor
+  labels:
+    app: account
+    release: stable
+spec:
+  selector:
+    matchLabels:
+      app: account
+  endpoints:
+    - port: spring
+      path: "/actuator/prometheus"

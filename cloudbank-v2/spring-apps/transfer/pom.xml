@@ -4,12 +4,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
+    <!-- <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.7.9</version>
         <relativePath/>
-    </parent>
+    </parent> -->
+    <parent>
+		<groupId>com.example</groupId>
+		<artifactId>sample-spring-apps</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
     <groupId>com.exmaple</groupId>
 
     <artifactId>transfer</artifactId>
@@ -28,6 +33,25 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<version>1.10.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+				<exclusions>
+					<exclusion>
+					<groupId>javax.ws.rs</groupId>
+					<artifactId>jsr311-api</artifactId>
+				</exclusion>
+			</exclusions>			
+		</dependency>            
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jersey</artifactId>
@@ -52,6 +76,7 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+    
     </dependencies>
 
     <build>
@@ -59,7 +84,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.7.9</version>
+                <version>2.7.12</version>
             </plugin>
         </plugins>
     </build>

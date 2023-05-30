@@ -3,7 +3,14 @@
 
 spring:
   application:
-    name: accounts
+    name: account
+
+  cloud:
+    config:
+      failFast: false
+      label: ${spring.config.label}
+      profile: ${spring.profiles.active}
+
   jersey:
     type: filter
   jpa:
@@ -39,11 +46,37 @@ lra:
   coordinator:
     url: http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator
 
+eureka:
+  instance:
+    hostname: ${eureka.instance.hostname}
+    preferIpAddress: true
+  client:
+    service-url:
+      defaultZone: ${eureka.client.service-url.defaultZone}
+    fetch-registry: true
+    register-with-eureka: true
+    enabled: true
+
+hystrix:
+  metrics:
+    enabled: true
+
 management:
+  endpoint:
+    prometheus:
+      enabled: true
+    health:
+      show-details: always
   endpoints:
+    migrate-legacy-ids: true
     web:
       exposure:
-        include: health, metrics, prometheus
+        include: health, metrics, env, beans, hystrix.stream, prometheus, refresh
   metrics:
     tags:
       application: ${spring.application.name}
+
+logging:
+  level:
+    org:
+      springframework: DEBUG

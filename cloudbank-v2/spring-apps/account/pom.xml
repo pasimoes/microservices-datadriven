@@ -4,22 +4,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+<!--	<parent>-->
+<!--		<groupId>org.springframework.boot</groupId>-->
+<!--		<artifactId>spring-boot-starter-parent</artifactId>-->
+<!--		<version>2.7.9</version>-->
+<!--		<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
+<!--	</parent>-->
+
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.9</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.example</groupId>
+		<artifactId>sample-spring-apps</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
+
 	<groupId>com.example</groupId>
-	<artifactId>accounts</artifactId>
+	<artifactId>account</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>accounts</name>
+	<name>account</name>
 	<description>Demo project for Spring Boot</description>
-	<properties>
-		<java.version>17</java.version>
-		<oracle.jdbc.version>21.8.0.0</oracle.jdbc.version>
-		<liquibase.version>4.19.0</liquibase.version>
-	</properties>
+<!--	<properties>-->
+<!--		<java.version>17</java.version>-->
+<!--		<oracle.jdbc.version>21.8.0.0</oracle.jdbc.version>-->
+<!--		<liquibase.version>4.19.0</liquibase.version>-->
+<!--	</properties>-->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -35,7 +42,33 @@
 			<type>pom</type>
 			<version>2.7.7</version>
 		</dependency>
-		
+		<!-- For enable Production-ready features, prometheus etc -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<version>1.10.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+				<exclusions>
+					<exclusion>
+					<groupId>javax.ws.rs</groupId>
+					<artifactId>jsr311-api</artifactId>
+				</exclusion>
+			</exclusions>			
+		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.cloud</groupId>-->
+<!--			<artifactId>spring-cloud-netflix-eureka-client</artifactId>-->
+<!--		</dependency>-->
+
 		<!-- For Oracle Wallet (ADB-S); oraclepki, osdt_core, and osdt_cert artifacts -->
 		<dependency>
 		  <groupId>com.oracle.database.security</groupId>
@@ -80,18 +113,49 @@
 			<artifactId>jakarta.enterprise.cdi-api</artifactId>
 			<version>2.0.2</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>jakarta.inject</groupId>
+			<artifactId>jakarta.inject-api</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+		<dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.33</version>
+        </dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>2.7.9</version>
+				<version>3.1.0</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>17</source>
+					<target>17</target>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
