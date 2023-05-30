@@ -1,0 +1,19 @@
+server:
+  port: ${app.container.port}
+
+spring:
+  application:
+    name: banka
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    migrate-legacy-ids: true
+    web:
+      exposure:
+        include: "health,metrics,env,prometheus,refresh"
+# server:
+#   servlet:
+#     context-path: /banka
